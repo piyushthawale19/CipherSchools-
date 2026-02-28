@@ -1,0 +1,53 @@
+// ============================================================
+// layout/_sidebar.scss — Optional sidebar layout
+// ============================================================
+
+@use "abstracts" as *;
+
+.sidebar {
+  display: none;
+  width: $sidebar-width;
+  position: sticky;
+  top: $navbar-height;
+  height: calc(100vh - #{$navbar-height});
+  background-color: $color-bg-surface;
+  border-right: 1px solid $color-border;
+  padding: $space-6 $space-4;
+  flex-direction: column;
+  gap: $space-2;
+  @include scroll-y;
+
+  @include respond-to(laptop) {
+    display: flex;
+  }
+
+  &__section-title {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: $space-4 $space-2 $space-2;
+  }
+
+  &__item {
+    @include flex-between;
+    padding: $space-2 $space-3;
+    border-radius: $radius-base;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    @include transition;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-bg-elevated;
+      color: $color-text-primary;
+    }
+
+    &--active {
+      background-color: rgba($color-primary, 0.12);
+      color: $color-primary-light;
+      font-weight: $font-weight-medium;
+    }
+  }
+}

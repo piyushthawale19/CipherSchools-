@@ -1,0 +1,159 @@
+// ============================================================
+// components/_hint-panel.scss — LLM hint display
+// ============================================================
+
+@use "abstracts" as *;
+
+.hint-panel {
+  background-color: $color-bg-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  @include flex-col;
+
+  // Mobile: hint panel is at bottom, expands upward
+  @include respond-to(laptop) {
+    height: 100%;
+  }
+
+  &__header {
+    @include flex-between;
+    padding: $space-3 $space-4;
+    background-color: $color-bg-elevated;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    @include flex-between;
+    gap: $space-2;
+  }
+
+  &__counter {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    font-family: $font-family-mono;
+    background: $color-bg-elevated;
+    padding: 2px $space-2;
+    border-radius: $radius-full;
+    border: 1px solid $color-border;
+  }
+
+  &__body {
+    padding: $space-4;
+    flex: 1;
+    @include scroll-y;
+    max-height: 300px;
+    @include flex-col;
+    gap: $space-4;
+
+    @include respond-to(laptop) {
+      max-height: none;
+    }
+  }
+
+  &__trigger {
+    @include flex-between;
+    gap: $space-3;
+    padding: $space-3 $space-5;
+    background: linear-gradient(
+      135deg,
+      rgba($color-primary, 0.15),
+      rgba($color-secondary, 0.1)
+    );
+    border: 1px solid rgba($color-primary, 0.25);
+    border-radius: $radius-base;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary-light;
+    @include transition;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(
+        135deg,
+        rgba($color-primary, 0.25),
+        rgba($color-secondary, 0.2)
+      );
+      border-color: rgba($color-primary, 0.4);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__trigger-icon {
+    font-size: $font-size-xl;
+  }
+
+  // Individual hint item
+  &__item {
+    background-color: $color-bg-elevated;
+    border: 1px solid $color-border;
+    border-left: 3px solid $color-primary;
+    border-radius: $radius-base;
+    padding: $space-4;
+    @include flex-col;
+    gap: $space-2;
+  }
+
+  &__item-number {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-primary-light;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__item-text {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+  }
+
+  &__empty {
+    @include flex-center;
+    flex-direction: column;
+    gap: $space-3;
+    padding: $space-8 $space-4;
+    text-align: center;
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+  }
+
+  &__empty-icon {
+    font-size: 3.2rem;
+    opacity: 0.4;
+  }
+
+  // MODIFIER: loading state
+  &--loading {
+    .hint-panel__trigger {
+      position: relative;
+      color: transparent;
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba($color-primary, 0.3);
+        border-top-color: $color-primary;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

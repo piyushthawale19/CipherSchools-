@@ -1,0 +1,93 @@
+// ============================================================
+// components/_button.scss — Button variants
+// ============================================================
+
+@use "abstracts" as *;
+
+// Base button styles shared by all variants
+%btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-5;
+  border-radius: $radius-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  @include transition;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.btn {
+  @extend %btn-base;
+
+  // MODIFIER: primary
+  &--primary {
+    background-color: $color-primary;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+  }
+
+  // MODIFIER: secondary
+  &--secondary {
+    background-color: $color-bg-elevated;
+    color: $color-text-primary;
+    border: 1px solid $color-border;
+
+    &:hover:not(:disabled) {
+      background-color: $color-bg-toolbar;
+      border-color: $color-border-light;
+    }
+  }
+
+  // MODIFIER: danger
+  &--danger {
+    background-color: $color-danger;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: $color-danger-dark;
+    }
+  }
+
+  // MODIFIER: ghost
+  &--ghost {
+    background: transparent;
+    color: $color-text-secondary;
+
+    &:hover:not(:disabled) {
+      background-color: $color-bg-elevated;
+      color: $color-text-primary;
+    }
+  }
+
+  // SIZE MODIFIER
+  &--sm {
+    padding: $space-2 $space-3;
+    font-size: $font-size-xs;
+  }
+
+  &--lg {
+    padding: $space-4 $space-7;
+    font-size: $font-size-md;
+  }
+
+  &--full {
+    width: 100%;
+  }
+}

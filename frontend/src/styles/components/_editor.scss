@@ -1,0 +1,124 @@
+// ============================================================
+// components/_editor.scss — Monaco Editor wrapper
+// Only controls the container. Never override Monaco internals.
+// ============================================================
+
+@use "abstracts" as *;
+
+// BLOCK: editor wrapper
+.editor-wrapper {
+  @include editor-container(320px);
+  @include flex-col;
+  background-color: $color-bg-dark;
+
+  // Override mixin height defaults per breakpoints
+  height: 300px;
+
+  @include respond-to(tablet) {
+    height: 380px;
+  }
+
+  @include respond-to(laptop) {
+    height: 480px;
+    flex: 1;
+  }
+
+  // ELEMENT: language badge toolbar
+  &__toolbar {
+    @include flex-between;
+    padding: $space-2 $space-3;
+    background-color: $color-bg-toolbar;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+    gap: $space-2;
+  }
+
+  &__lang-badge {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    background: $color-bg-elevated;
+    padding: 2px $space-2;
+    border-radius: $radius-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__actions {
+    @include flex-between;
+    gap: $space-2;
+  }
+
+  // The actual Monaco container
+  &__monaco {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  // ELEMENT: footer meta bar
+  &__footer {
+    @include flex-between;
+    padding: $space-1 $space-3;
+    background-color: $color-bg-toolbar;
+    border-top: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  &__footer-meta {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    font-family: $font-family-mono;
+  }
+}
+
+// Execute button
+.execute-btn {
+  @include flex-between;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  background-color: $color-primary;
+  color: white;
+  border-radius: $radius-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  @include transition;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background-color: $color-primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    position: relative;
+    color: transparent;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(white, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+  }
+
+  &--full {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

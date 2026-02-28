@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.sql": "sql"
+  },
+  // Disable MSSQL linting for this workspace (it's a PostgreSQL project)
+  "mssql.intelliSense.enableIntelliSense": false
+}

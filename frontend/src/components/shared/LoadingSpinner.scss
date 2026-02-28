@@ -1,0 +1,59 @@
+// ============================================================
+// components/shared/LoadingSpinner.scss
+// ============================================================
+
+@use "abstracts" as *;
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: inline-flex;
+
+  &__ring {
+    border-radius: 50%;
+    border-style: solid;
+    border-color: $color-border $color-primary $color-primary $color-primary;
+    animation: spin 0.75s linear infinite;
+  }
+
+  &--sm .spinner__ring {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+
+  &--md .spinner__ring {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+  }
+
+  &--lg .spinner__ring {
+    width: 44px;
+    height: 44px;
+    border-width: 4px;
+  }
+}
+
+.spinner-overlay {
+  @include flex-center;
+  flex-direction: column;
+  gap: $space-4;
+  min-height: 200px;
+
+  &--fullpage {
+    position: fixed;
+    inset: 0;
+    background: rgba($color-bg-dark, 0.8);
+    z-index: $z-modal;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}

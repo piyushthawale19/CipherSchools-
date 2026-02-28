@@ -1,0 +1,85 @@
+// ============================================================
+// components/_modal.scss — Modal dialog overlay
+// ============================================================
+
+@use "abstracts" as *;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba($color-bg-dark, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: $z-modal;
+  @include flex-center;
+  padding: $space-4;
+  animation: fade-in 0.2s ease;
+}
+
+.modal {
+  width: 100%;
+  max-width: 500px;
+  background-color: $color-bg-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  @include card-shadow-hover;
+  animation: slide-up 0.2s ease;
+  overflow: hidden;
+
+  &__header {
+    @include flex-between;
+    padding: $space-5 $space-6;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__close {
+    width: 30px;
+    height: 30px;
+    border-radius: $radius-full;
+    @include flex-center;
+    color: $color-text-muted;
+    @include transition;
+
+    &:hover {
+      background-color: $color-bg-elevated;
+      color: $color-text-primary;
+    }
+  }
+
+  &__body {
+    padding: $space-6;
+  }
+
+  &__footer {
+    @include flex-between;
+    padding: $space-4 $space-6;
+    border-top: 1px solid $color-border;
+    gap: $space-3;
+    justify-content: flex-end;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

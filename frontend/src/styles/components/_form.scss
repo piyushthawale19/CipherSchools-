@@ -1,0 +1,107 @@
+// ============================================================
+// components/_form.scss — Form inputs and labels
+// ============================================================
+
+@use "abstracts" as *;
+
+.form-group {
+  @include flex-col;
+  gap: $space-2;
+  margin-bottom: $space-5;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}
+
+.form-input {
+  @include input-base;
+}
+
+.form-error {
+  font-size: $font-size-xs;
+  color: $color-danger;
+  margin-top: $space-1;
+}
+
+.password-wrapper {
+  position: relative;
+
+  .form-input {
+    padding-right: $space-10;
+  }
+
+  &__toggle {
+    position: absolute;
+    right: $space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-text-muted;
+    @include transition(color);
+    padding: $space-1;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+  }
+}
+
+// Progress bar
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: $color-bg-elevated;
+  border-radius: $radius-full;
+  overflow: hidden;
+
+  &__fill {
+    height: 100%;
+    background: linear-gradient(90deg, $color-primary, $color-secondary);
+    border-radius: $radius-full;
+    @include transition(width);
+  }
+}
+
+// Filter chips
+.filter-chips {
+  display: flex;
+  gap: $space-2;
+  overflow-x: auto;
+  padding-bottom: $space-1;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: $space-2 $space-4;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  background-color: $color-bg-elevated;
+  border: 1px solid $color-border;
+  @include transition;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: $color-border-light;
+    color: $color-text-primary;
+  }
+
+  &--active {
+    background-color: rgba($color-primary, 0.15);
+    border-color: rgba($color-primary, 0.4);
+    color: $color-primary-light;
+  }
+}

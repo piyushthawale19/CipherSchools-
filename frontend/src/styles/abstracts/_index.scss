@@ -1,0 +1,8 @@
+// ============================================================
+// abstracts/_index.scss — Forwards all abstracts
+// @use "abstracts" as * to get everything in one import
+// ============================================================
+
+@forward "variables";
+@forward "mixins";
+@forward "functions";

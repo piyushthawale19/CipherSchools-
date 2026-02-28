@@ -1,0 +1,107 @@
+// ============================================================
+// components/_schema-viewer.scss — SQL schema tree display
+// ============================================================
+
+@use "abstracts" as *;
+
+.schema-viewer {
+  @include flex-col;
+  gap: $space-4;
+
+  &__title {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  // Individual table in schema viewer
+  &__table {
+    background-color: $color-bg-elevated;
+    border: 1px solid $color-border;
+    border-radius: $radius-base;
+    overflow: hidden;
+  }
+
+  &__table-header {
+    @include flex-between;
+    padding: $space-2 $space-3;
+    background-color: rgba($color-primary, 0.08);
+    border-bottom: 1px solid $color-border;
+    cursor: pointer;
+    @include transition(background-color);
+
+    &:hover {
+      background-color: rgba($color-primary, 0.15);
+    }
+  }
+
+  &__table-name {
+    font-family: $font-family-mono;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-primary-light;
+    @include flex-between;
+    gap: $space-2;
+  }
+
+  &__table-icon {
+    font-size: $font-size-base;
+  }
+
+  &__table-toggle {
+    color: $color-text-muted;
+    font-size: $font-size-xs;
+  }
+
+  // Column list
+  &__columns {
+    @include flex-col;
+  }
+
+  &__column {
+    @include flex-between;
+    padding: $space-2 $space-3;
+    border-bottom: 1px solid $color-border;
+    gap: $space-2;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: rgba($color-bg-dark, 0.5);
+    }
+  }
+
+  &__column-name {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    flex: 1;
+  }
+
+  &__column-type {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    background: $color-bg-surface;
+    padding: 1px $space-2;
+    border-radius: $radius-sm;
+    border: 1px solid $color-border;
+  }
+
+  // Sample data preview
+  &__sample {
+    margin-top: $space-2;
+  }
+
+  &__sample-title {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    padding: $space-2 $space-3;
+    font-style: italic;
+    border-bottom: 1px solid $color-border;
+  }
+}

@@ -1,0 +1,16 @@
+// ============================================================
+// abstracts/_functions.scss — Sass utility functions
+// ============================================================
+
+// rem() converter — depends on html font-size: 62.5%
+// Usage: font-size: rem(16) → 1.6rem
+@use "sass:math";
+
+@function rem($px) {
+  @return math.div($px, 10) * 1rem;
+}
+
+// clamp a value between min and max
+@function clamp-value($val, $min, $max) {
+  @return min(max($val, $min), $max);
+}

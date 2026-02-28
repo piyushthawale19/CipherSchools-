@@ -1,0 +1,263 @@
+// ============================================================
+// pages/_dashboard.scss — Dashboard page styles
+// ============================================================
+
+@use "abstracts" as *;
+
+// ── Dashboard layout ─────────────────────────────────────────
+.dashboard-page {
+  min-height: 100vh;
+  background: $color-bg-dark;
+  padding-top: $navbar-height; // offset for fixed navbar
+}
+
+// ── Welcome / hero section ───────────────────────────────────
+.welcome-section {
+  padding: $space-8 $space-4 $space-6;
+  background: linear-gradient(
+    180deg,
+    rgba($color-primary, 0.06) 0%,
+    transparent 100%
+  );
+  border-bottom: 1px solid $color-border;
+
+  @include respond-to(tablet) {
+    padding: $space-10 $space-8;
+  }
+
+  @include respond-to(laptop) {
+    padding: $space-12 $space-10;
+  }
+
+  .container {
+    @include respond-to(laptop) {
+      @include flex-between;
+      gap: $space-6;
+    }
+  }
+
+  &__text {
+    @include respond-to(laptop) {
+      flex: 1;
+    }
+  }
+
+  &__greeting {
+    font-size: $font-size-sm;
+    color: $color-primary-light;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: $space-2;
+  }
+
+  &__heading {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: 1.2;
+    margin-bottom: $space-3;
+
+    @include respond-to(laptop) {
+      font-size: $font-size-4xl;
+    }
+  }
+
+  &__subheading {
+    font-size: $font-size-base;
+    color: $color-text-muted;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+
+  &__stats {
+    display: flex;
+    gap: $space-4;
+    margin-top: $space-6;
+    flex-wrap: wrap;
+
+    @include respond-to(laptop) {
+      margin-top: 0;
+      flex-direction: column;
+      gap: $space-3;
+    }
+  }
+}
+
+// ── Progress summary cards ───────────────────────────────────
+.progress-card {
+  flex: 1;
+  min-width: 120px;
+  padding: $space-4;
+  background: $color-bg-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-base;
+  text-align: center;
+
+  @include respond-to(laptop) {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    min-width: 200px;
+  }
+
+  &__icon {
+    font-size: $font-size-2xl;
+    margin-bottom: $space-1;
+
+    @include respond-to(laptop) {
+      margin-bottom: 0;
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__value {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    margin-top: $space-1;
+  }
+
+  // Color accents
+  &--completed .progress-card__value {
+    color: $color-success;
+  }
+  &--attempted .progress-card__value {
+    color: $color-secondary;
+  }
+  &--total .progress-card__value {
+    color: $color-primary-light;
+  }
+}
+
+// ── Assignments section ──────────────────────────────────────
+.assignments-section {
+  padding: $space-6 $space-4;
+
+  @include respond-to(tablet) {
+    padding: $space-8;
+  }
+
+  @include respond-to(laptop) {
+    padding: $space-8 $space-10;
+  }
+
+  &__header {
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: $space-4;
+    margin-bottom: $space-6;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__count {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin-top: $space-1;
+  }
+
+  &__controls {
+    @include flex-between;
+    gap: $space-3;
+    flex-wrap: wrap;
+    margin-bottom: $space-4;
+  }
+
+  &__search {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+
+    input {
+      width: 100%;
+      padding: $space-2 $space-3 $space-2 $space-8;
+      background: $color-bg-elevated;
+      border: 1px solid $color-border;
+      border-radius: $radius-base;
+      font-size: $font-size-sm;
+      color: $color-text-primary;
+      @include transition(border-color);
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+      }
+
+      &::placeholder {
+        color: $color-text-muted;
+      }
+    }
+
+    &-icon {
+      position: absolute;
+      left: $space-2;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $color-text-muted;
+      font-size: $font-size-base;
+    }
+  }
+
+  &__sort {
+    display: flex;
+    gap: $space-2;
+    align-items: center;
+
+    label {
+      font-size: $font-size-xs;
+      color: $color-text-muted;
+      white-space: nowrap;
+    }
+
+    select {
+      padding: $space-2 $space-3;
+      background: $color-bg-elevated;
+      border: 1px solid $color-border;
+      border-radius: $radius-base;
+      font-size: $font-size-sm;
+      color: $color-text-secondary;
+      cursor: pointer;
+      @include transition(border-color);
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+      }
+    }
+  }
+
+  // Empty state
+  &__empty {
+    @include flex-col;
+    @include flex-center;
+    gap: $space-3;
+    padding: $space-16;
+    text-align: center;
+    color: $color-text-muted;
+    border: 2px dashed $color-border;
+    border-radius: $radius-lg;
+    grid-column: 1 / -1;
+  }
+
+  &__empty-icon {
+    font-size: 3rem;
+    opacity: 0.5;
+  }
+
+  &__empty-text {
+    font-size: $font-size-base;
+  }
+}

@@ -1,0 +1,62 @@
+// ============================================================
+// base/_typography.scss — Base typography scale
+// ============================================================
+
+@use "abstracts" as *;
+
+// Import font from Google Fonts via @import (allowed in base)
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+}
+
+h1 {
+  font-size: $font-size-4xl;
+}
+h2 {
+  font-size: $font-size-3xl;
+}
+h3 {
+  font-size: $font-size-2xl;
+}
+h4 {
+  font-size: $font-size-xl;
+}
+h5 {
+  font-size: $font-size-lg;
+}
+h6 {
+  font-size: $font-size-base;
+}
+
+p {
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+small {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+strong {
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+code {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  background: $color-bg-elevated;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  color: $color-primary-light;
+}

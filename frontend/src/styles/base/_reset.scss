@@ -1,0 +1,84 @@
+// ============================================================
+// base/_reset.scss — Global CSS reset and normalization
+// ============================================================
+
+@use "abstracts" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; // 1rem = 10px for easy math
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Remove default list styles
+ul,
+ol {
+  list-style: none;
+}
+
+// Reset buttons
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+// Remove default input outlines — handled via focus-ring mixin
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+// Images
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+// Links
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Tables
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// Code
+code,
+pre {
+  font-family: $font-family-mono;
+}
+
+// Focus visible for keyboard navigation
+:focus-visible {
+  @include focus-ring;
+}

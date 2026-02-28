@@ -1,0 +1,39 @@
+// ============================================================
+// main.scss — Entry Point
+// Order matters: base → layout → components → pages
+// Abstracts are loaded via sass loadPaths in vite.config.js,
+// so each partial uses @use "abstracts" as * directly.
+// ============================================================
+
+// 1. BASE (global resets, typography, box model)
+@use "base/reset";
+@use "base/typography";
+
+// 2. LAYOUT (structural page-level wrappers)
+@use "layout/grid";
+@use "layout/navbar";
+@use "layout/sidebar";
+
+// 3. COMPONENTS (reusable BEM blocks)
+@use "components/button";
+@use "components/badge";
+@use "components/card";
+@use "components/modal";
+@use "components/editor";
+@use "components/results-table";
+@use "components/hint-panel";
+@use "components/form";
+@use "components/schema-viewer";
+
+// 4. PAGES (page-specific rules, import last to allow overrides)
+@use "pages/login";
+@use "pages/dashboard";
+@use "pages/assignment";
+@use "pages/login";
+@use "pages/dashboard";
+@use "pages/assignment";
+
+// ============================================================
+// RULE: Never write CSS directly in this file.
+//       Only @use imports belong here.
+// ============================================================

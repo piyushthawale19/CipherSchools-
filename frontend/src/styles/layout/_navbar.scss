@@ -1,0 +1,146 @@
+// ============================================================
+// layout/_navbar.scss — Top navigation bar
+// ============================================================
+
+@use "abstracts" as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navbar-height;
+  z-index: $z-navbar;
+  background-color: $color-bg-surface;
+  border-bottom: 1px solid $color-border;
+  @include flex-between;
+  padding: 0 $space-4;
+  @include transition(box-shadow);
+
+  &:has(+ .page-wrapper > *:hover) {
+    box-shadow: $shadow-sm;
+  }
+
+  @include respond-to(tablet) {
+    padding: 0 $space-6;
+  }
+
+  @include respond-to(laptop) {
+    padding: 0 $space-8;
+  }
+
+  // Left section: logo + title
+  &__brand {
+    @include flex-between;
+    gap: $space-3;
+    text-decoration: none;
+
+    &-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, $color-primary, $color-secondary);
+      border-radius: $radius-base;
+      @include flex-center;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    &-name {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+      display: none;
+
+      @include respond-to(tablet) {
+        display: block;
+      }
+    }
+  }
+
+  // Center: page title (assignment name on assignment page)
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    @include text-truncate(1);
+    flex: 1;
+    text-align: center;
+    padding: 0 $space-4;
+
+    @include respond-to(laptop) {
+      font-size: $font-size-lg;
+    }
+  }
+
+  // Right section: nav links + user avatar
+  &__actions {
+    @include flex-between;
+    gap: $space-3;
+  }
+
+  &__links {
+    display: none;
+    gap: $space-2;
+
+    @include respond-to(laptop) {
+      display: flex;
+    }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-3;
+    border-radius: $radius-base;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    @include transition(color, background-color);
+
+    &:hover {
+      color: $color-text-primary;
+      background-color: $color-bg-elevated;
+    }
+
+    &--active {
+      color: $color-primary-light;
+      background-color: rgba($color-primary, 0.12);
+    }
+  }
+
+  &__avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: $radius-full;
+    background: linear-gradient(135deg, $color-primary, $color-secondary);
+    @include flex-center;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: white;
+    cursor: pointer;
+    @include transition(opacity);
+    flex-shrink: 0;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  &__back-btn {
+    @include flex-between;
+    gap: $space-2;
+    padding: $space-2 $space-3;
+    border-radius: $radius-base;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    @include transition;
+
+    &:hover {
+      color: $color-text-primary;
+      background-color: $color-bg-elevated;
+    }
+  }
+}

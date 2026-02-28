@@ -1,0 +1,171 @@
+// ============================================================
+// abstracts/_mixins.scss — Reusable Sass mixins
+// Import variables before using them in this file.
+// ============================================================
+
+@use "variables" as *;
+
+// --- Responsive Breakpoint (Mobile First) ---
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (min-width: #{$bp-tablet}) {
+      @content;
+    }
+  } @else if $breakpoint == laptop {
+    @media (min-width: #{$bp-laptop}) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media (min-width: #{$bp-desktop}) {
+      @content;
+    }
+  }
+}
+
+// --- Flexbox Helpers ---
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+// --- Scrollbar styling ---
+@mixin scroll-y {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $color-border $color-bg-surface;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-bg-surface;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-border-light;
+    border-radius: $radius-full;
+  }
+}
+
+@mixin scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $color-border $color-bg-surface;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-bg-surface;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-border-light;
+    border-radius: $radius-full;
+  }
+}
+
+// --- Typography ---
+@mixin text-truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@mixin font-mono {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+}
+
+// --- Visual ---
+@mixin card-shadow {
+  box-shadow: $shadow-base;
+}
+
+@mixin card-shadow-hover {
+  box-shadow: $shadow-md;
+}
+
+@mixin transition($prop: all) {
+  transition: $prop 0.2s ease;
+}
+
+@mixin focus-ring {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}
+
+// --- Editor specific ---
+@mixin editor-container($height: 320px) {
+  position: relative;
+  height: $height;
+  border: 1px solid $color-border;
+  border-radius: $radius-base;
+  overflow: hidden;
+  background-color: $color-bg-dark;
+
+  @include respond-to(laptop) {
+    height: 480px;
+  }
+}
+
+// --- Glassmorphism badge ---
+@mixin badge-base {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-2;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: 1;
+}
+
+// --- Input base ---
+@mixin input-base {
+  width: 100%;
+  padding: $space-3 $space-4;
+  background: $color-bg-elevated;
+  border: 1px solid $color-border;
+  border-radius: $radius-base;
+  color: $color-text-primary;
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+  @include transition(border-color);
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

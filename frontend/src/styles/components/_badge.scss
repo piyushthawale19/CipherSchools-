@@ -1,0 +1,48 @@
+// ============================================================
+// components/_badge.scss — Difficulty and category badges
+// ============================================================
+
+@use "abstracts" as *;
+
+.badge {
+  @include badge-base;
+
+  &--easy {
+    background-color: rgba($color-easy, 0.12);
+    color: $color-easy;
+    border: 1px solid rgba($color-easy, 0.25);
+  }
+
+  &--medium {
+    background-color: rgba($color-medium, 0.12);
+    color: $color-medium;
+    border: 1px solid rgba($color-medium, 0.25);
+  }
+
+  &--hard {
+    background-color: rgba($color-danger, 0.12);
+    color: $color-danger;
+    border: 1px solid rgba($color-danger, 0.25);
+  }
+
+  &--category {
+    background-color: rgba($color-primary, 0.12);
+    color: $color-primary-light;
+    border: 1px solid rgba($color-primary, 0.25);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  &--success {
+    background-color: rgba($color-success, 0.12);
+    color: $color-success;
+    border: 1px solid rgba($color-success, 0.25);
+  }
+
+  &--error {
+    background-color: rgba($color-danger, 0.12);
+    color: $color-danger;
+    border: 1px solid rgba($color-danger, 0.25);
+  }
+}

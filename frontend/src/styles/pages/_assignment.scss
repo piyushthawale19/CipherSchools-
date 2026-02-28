@@ -1,0 +1,290 @@
+// ============================================================
+// pages/_assignment.scss — Assignment / SQL editor page
+// ============================================================
+
+@use "abstracts" as *;
+
+// ── Page shell ───────────────────────────────────────────────
+.assignment-page {
+  min-height: 100vh;
+  background: $color-bg-dark;
+  padding-top: $navbar-height;
+
+  // Page-level loading state
+  &--loading {
+    @include flex-center;
+  }
+}
+
+// ── Three-panel layout ───────────────────────────────────────
+// Mobile:  stacked (brief → editor → hints)
+// Tablet:  brief left 35% | editor+hints right 65%
+// Laptop:  brief 28% | editor 44% | hints 28%
+// ────────────────────────────────────────────────────────────
+.assignment-layout {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - #{$navbar-height});
+  overflow: hidden;
+
+  @include respond-to(tablet) {
+    flex-direction: row;
+  }
+}
+
+// ── Panel base ───────────────────────────────────────────────
+.panel {
+  @include flex-col;
+  overflow: hidden;
+
+  &__header {
+    @include flex-between;
+    padding: $space-3 $space-4;
+    background: $color-bg-elevated;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__body {
+    flex: 1;
+    @include scroll-y;
+    padding: $space-4;
+  }
+}
+
+// ── Brief panel (left) ───────────────────────────────────────
+.brief-panel {
+  @extend .panel;
+  background: $color-bg-surface;
+  border-bottom: 1px solid $color-border;
+
+  // Mobile: collapsible, max 40vh, scrollable
+  max-height: 40vh;
+
+  @include respond-to(tablet) {
+    max-height: none;
+    width: 35%;
+    border-bottom: none;
+    border-right: 1px solid $color-border;
+  }
+
+  @include respond-to(laptop) {
+    width: 28%;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-bottom: $space-4;
+  }
+
+  &__question-label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: $space-2;
+  }
+
+  &__question {
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    line-height: 1.7;
+    margin-bottom: $space-5;
+  }
+
+  &__schema-label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: $space-3;
+  }
+}
+
+// ── Editor panel (center) ────────────────────────────────────
+.editor-panel {
+  @extend .panel;
+  background: $color-bg-base;
+  flex: 1;
+
+  @include respond-to(tablet) {
+    flex: 1;
+    border-right: 1px solid $color-border;
+  }
+
+  @include respond-to(laptop) {
+    width: 44%;
+    flex: none;
+  }
+
+  &__body {
+    padding: 0;
+    @include flex-col;
+  }
+
+  // Monaco section — takes available height
+  &__monaco {
+    flex: 1;
+    min-height: 200px;
+
+    @include respond-to(tablet) {
+      min-height: 0;
+    }
+  }
+
+  // Footer bar: status + row count
+  &__footer {
+    @include flex-between;
+    padding: $space-2 $space-4;
+    background: $color-bg-elevated;
+    border-top: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  &__status {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+  }
+
+  &__row-count {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+
+    strong {
+      color: $color-text-secondary;
+    }
+  }
+}
+
+// ── Results sub-section (below editor on mobile, same panel) ─
+.results-section {
+  border-top: 1px solid $color-border;
+  flex-shrink: 0;
+  max-height: 45vh;
+  @include flex-col;
+
+  @include respond-to(tablet) {
+    max-height: none;
+    flex: 1;
+  }
+}
+
+// ── Hint panel (right) ───────────────────────────────────────
+.hint-side-panel {
+  @extend .panel;
+  background: $color-bg-surface;
+
+  @include respond-to(tablet) {
+    width: 30%;
+  }
+
+  @include respond-to(laptop) {
+    width: 28%;
+  }
+
+  // Mobile: Initially collapsed
+  &--collapsed {
+    max-height: $space-10;
+    overflow: hidden;
+  }
+}
+
+// ── Tabs (Results / Hints) for mobile ───────────────────────
+.panel-tabs {
+  display: flex;
+  background: $color-bg-elevated;
+  border-bottom: 1px solid $color-border;
+
+  @include respond-to(laptop) {
+    display: none;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: $space-2 $space-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-muted;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    @include transition(color, border-color);
+
+    &--active {
+      color: $color-primary-light;
+      border-bottom-color: $color-primary;
+    }
+
+    &:hover:not(&--active) {
+      color: $color-text-secondary;
+    }
+  }
+}
+
+// ── Submission feedback banner ───────────────────────────────
+.submission-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-base;
+  font-size: $font-size-sm;
+  margin-bottom: $space-3;
+
+  &__icon {
+    font-size: $font-size-xl;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  &__title {
+    font-weight: $font-weight-semibold;
+    margin-bottom: $space-1;
+  }
+
+  &--correct {
+    background: rgba($color-success, 0.1);
+    border: 1px solid rgba($color-success, 0.25);
+    color: $color-success;
+  }
+
+  &--incorrect {
+    background: rgba($color-warning, 0.1);
+    border: 1px solid rgba($color-warning, 0.25);
+    color: $color-warning;
+  }
+
+  &--error {
+    background: rgba($color-danger, 0.1);
+    border: 1px solid rgba($color-danger, 0.25);
+    color: $color-danger;
+  }
+
+  &--blocked {
+    background: rgba($color-text-muted, 0.08);
+    border: 1px solid $color-border;
+    color: $color-text-muted;
+  }
+}

@@ -1,0 +1,117 @@
+// ============================================================
+// layout/_grid.scss — Structural layout wrappers
+// ============================================================
+
+@use "abstracts" as *;
+
+// App root container
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $color-bg-base;
+}
+
+// Page wrapper (below navbar)
+.page-wrapper {
+  flex: 1;
+  padding-top: $navbar-height;
+}
+
+// Container — centered, max-width constrained
+.container {
+  width: 100%;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 $space-4;
+
+  @include respond-to(tablet) {
+    padding: 0 $space-6;
+  }
+
+  @include respond-to(laptop) {
+    padding: 0 $space-8;
+  }
+}
+
+// Auth layout — login/register pages
+.auth-layout {
+  min-height: 100vh;
+  @include flex-center;
+  background-color: $color-bg-dark;
+  padding: $space-4;
+
+  &__brand {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: $space-12;
+
+    @include respond-to(laptop) {
+      display: flex;
+    }
+  }
+
+  &__brand-title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $space-4;
+  }
+
+  &__brand-sub {
+    font-size: $font-size-xl;
+    color: $color-text-secondary;
+    max-width: 400px;
+    line-height: $line-height-relaxed;
+  }
+
+  &__form-card {
+    width: 100%;
+    max-width: 420px;
+    background: $color-bg-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $space-8 $space-6;
+    @include card-shadow;
+  }
+
+  @include respond-to(laptop) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    &__form-card {
+      margin: 0 auto;
+    }
+  }
+}
+
+// Dashboard layout
+.dashboard-layout {
+  padding: $space-6 $space-4;
+
+  @include respond-to(tablet) {
+    padding: $space-8 $space-6;
+  }
+
+  @include respond-to(laptop) {
+    padding: $space-10 $space-8;
+  }
+}
+
+// Assignment grid — responsive columns
+.assignment-grid {
+  display: grid;
+  gap: $space-4;
+  grid-template-columns: 1fr;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-5;
+  }
+
+  @include respond-to(laptop) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-6;
+  }
+}

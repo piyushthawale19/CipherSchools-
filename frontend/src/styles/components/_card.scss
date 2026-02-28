@@ -1,0 +1,152 @@
+// ============================================================
+// components/_card.scss — .assignment-card BEM block
+// ============================================================
+
+@use "abstracts" as *;
+
+// BLOCK
+.assignment-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-bg-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-5;
+  border-left: 4px solid $color-border; // overridden by modifiers
+  @include card-shadow;
+  @include transition;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: $color-border-light;
+    @include card-shadow-hover;
+    transform: translateY(-2px);
+  }
+
+  @include respond-to(tablet) {
+    padding: $space-6;
+  }
+
+  // ELEMENT: header
+  &__header {
+    @include flex-between;
+    margin-bottom: $space-3;
+    gap: $space-2;
+  }
+
+  // ELEMENT: title
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    @include text-truncate(1);
+    flex: 1;
+
+    @include respond-to(laptop) {
+      @include text-truncate(2);
+    }
+  }
+
+  // ELEMENT: description
+  &__description {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+    @include text-truncate(2);
+    margin-bottom: $space-4;
+    flex: 1;
+  }
+
+  // ELEMENT: meta
+  &__meta {
+    @include flex-between;
+    margin-bottom: $space-4;
+    gap: $space-2;
+    flex-wrap: wrap;
+  }
+
+  &__meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+  }
+
+  // ELEMENT: footer
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+  }
+
+  // MODIFIER: difficulty borders
+  &--easy {
+    border-left-color: $color-easy;
+  }
+  &--medium {
+    border-left-color: $color-medium;
+  }
+  &--hard {
+    border-left-color: $color-danger;
+  }
+
+  // MODIFIER: completed overlay
+  &--completed {
+    &::after {
+      content: "✓";
+      position: absolute;
+      top: $space-3;
+      right: $space-3;
+      width: 22px;
+      height: 22px;
+      background: $color-success;
+      border-radius: $radius-full;
+      @include flex-center;
+      font-size: 12px;
+      color: white;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  // MODIFIER: loading skeleton state
+  &--skeleton {
+    pointer-events: none;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Stat card — used on profile page
+.stat-card {
+  background-color: $color-bg-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-5;
+  text-align: center;
+  @include card-shadow;
+
+  &__value {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary-light;
+    display: block;
+    margin-bottom: $space-1;
+  }
+
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}

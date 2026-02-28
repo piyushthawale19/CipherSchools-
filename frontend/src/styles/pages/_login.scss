@@ -1,0 +1,173 @@
+// ============================================================
+// pages/_login.scss — Auth pages (login + register)
+// ============================================================
+
+@use "abstracts" as *;
+
+// ── Auth layout wrapper ──────────────────────────────────────
+.auth-page {
+  min-height: 100vh;
+  @include flex-center;
+  background: $color-bg-dark;
+  padding: $space-4;
+
+  // Subtle radial glow in background
+  background-image: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgba($color-primary, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+// ── Auth card ───────────────────────────────────────────────
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: $color-bg-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-8;
+  @include card-shadow;
+
+  @include respond-to(tablet) {
+    padding: $space-10;
+  }
+
+  &__logo {
+    @include flex-center;
+    gap: $space-3;
+    margin-bottom: $space-6;
+    text-decoration: none;
+  }
+
+  &__logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, $color-primary, $color-secondary);
+    border-radius: $radius-base;
+    @include flex-center;
+    font-size: $font-size-xl;
+  }
+
+  &__logo-text {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    background: linear-gradient(90deg, $color-primary-light, $color-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__heading {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+    margin-bottom: $space-1;
+  }
+
+  &__subheading {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    text-align: center;
+    margin-bottom: $space-6;
+  }
+
+  &__form {
+    @include flex-col;
+    gap: $space-4;
+  }
+
+  &__submit {
+    margin-top: $space-2;
+  }
+
+  &__divider {
+    position: relative;
+    text-align: center;
+    margin: $space-4 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 50% 0 auto;
+      height: 1px;
+      background: $color-border;
+    }
+
+    span {
+      position: relative;
+      background: $color-bg-surface;
+      padding: 0 $space-3;
+      font-size: $font-size-xs;
+      color: $color-text-muted;
+    }
+  }
+
+  &__footer {
+    text-align: center;
+    margin-top: $space-5;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+
+    a {
+      color: $color-primary-light;
+      font-weight: $font-weight-medium;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Error alert box
+  &__alert {
+    @include flex-between;
+    gap: $space-2;
+    padding: $space-3 $space-4;
+    background: rgba($color-danger, 0.1);
+    border: 1px solid rgba($color-danger, 0.3);
+    border-radius: $radius-base;
+    font-size: $font-size-sm;
+    color: $color-danger;
+    margin-bottom: $space-2;
+  }
+}
+
+// ── Password strength meter ──────────────────────────────────
+.strength-meter {
+  margin-top: $space-1;
+
+  &__bars {
+    display: flex;
+    gap: $space-1;
+    height: 4px;
+    margin-bottom: $space-1;
+  }
+
+  &__bar {
+    flex: 1;
+    border-radius: $radius-full;
+    background: $color-border;
+    @include transition(background-color);
+
+    &--active-1 {
+      background: $color-danger;
+    }
+    &--active-2 {
+      background: $color-warning;
+    }
+    &--active-3 {
+      background: $color-secondary;
+    }
+    &--active-4 {
+      background: $color-success;
+    }
+  }
+
+  &__label {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+  }
+}
